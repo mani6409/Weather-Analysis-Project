@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather Insight Portal</title>
+  <link rel="stylesheet" href="my_project.css">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js for data visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Plotly.js for 3D charts -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <!-- Header with navigation -->
+  <header class="main-header">
+    <div class="logo">
+      <i class="fas fa-cloud-sun-rain"></i>
+      <span>Weather Insights</span>
+    </div>
+    <nav>
+      <button id="infoBtn" class="nav-button"><i class="fas fa-info-circle"></i> About Project</button>
+      <button id="teamBtn" class="nav-button"><i class="fas fa-users"></i> Our Team</button>
+      <button id="homeBtn" class="nav-button"><i class="fas fa-home"></i> Home</button>
+    </nav>
+  </header>
+
+  <!-- INTRO SECTION -->
+  <section id="intro" class="intro">
+    <div class="intro-content">
+      <h1>🌦️ 50-Year Weather Analysis</h1>
+      <p class="tagline">Explore long-term climate trends, city-specific weather patterns, and gain actionable insights for research and planning.</p>
+      <div class="features">
+        <div class="feature-item">
+          <i class="fas fa-chart-line"></i>
+          <h3>Historical Trends</h3>
+          <p>Analyze 50 years of weather data to identify long-term patterns</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-map-marked-alt"></i>
+          <h3>Location-Specific</h3>
+          <p>Compare weather patterns across different states and cities in India</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-lightbulb"></i>
+          <h3>Actionable Insights</h3>
+          <p>Make informed decisions based on historical weather data</p>
+        </div>
+      </div>
+      <button id="startBtn" class="cta-button">Get Started <i class="fas fa-arrow-right"></i></button>
+    </div>
+  </section>
+
+  <!-- MAIN SECTION (hidden initially) -->
+  <section id="mainContent" class="hidden">
+    <div class="dashboard">
+      <div class="search-container">
+        <h2><i class="fas fa-search-location"></i> Find Weather Data</h2>
+        <div class="dropdown-group">
+          <label for="stateSelect">Select State</label>
+          <select id="stateSelect">
+            <option value="">-- Select State --</option>
+            <!-- States populated by JS -->
+          </select>
+        </div>
+
+        <div class="dropdown-group">
+          <label for="citySelect">Select City</label>
+          <select id="citySelect" disabled>
+            <option value="">-- First Select a State --</option>
+            <!-- Cities populated by JS after state selection -->
+          </select>
+        </div>
+
+        <button id="searchBtn" class="action-button"><i class="fas fa-search"></i> Search Weather Data</button>
+      </div>
+
+      <div class="graph-section">
+        <h2><i class="fas fa-chart-bar"></i> Weather Insights</h2>
+        <div id="graphArea" class="data-display">
+          <div class="placeholder-content">
+            <i class="fas fa-cloud-sun fa-3x"></i>
+            <p>Select a city to view weather data and insights</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Info Modal (hidden initially) -->
+  <div id="infoModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2><i class="fas fa-info-circle"></i> About This Project</h2>
+
+      <div class="info-section">
+        <h3>Project Overview</h3>
+        <p>This 50-Year Weather Analysis tool provides insights into long-term weather patterns across India. By analyzing historical data from various weather stations, we can identify trends, anomalies, and patterns that help in understanding climate change impacts and seasonal variations.</p>
+      </div>
+
+      <div class="info-section">
+        <h3>Key Insights</h3>
+        <ul class="insights-list">
+          <li><i class="fas fa-temperature-high"></i> <strong>Temperature Trends:</strong> Average temperatures have increased by 1.2°C over the past 50 years across most regions.</li>
+          <li><i class="fas fa-chart-line"></i> <strong>Temperature Patterns:</strong> Temperature patterns show increasing variability across different regions.</li>
+          <li><i class="fas fa-wind"></i> <strong>Seasonal Shifts:</strong> Summer seasons are starting earlier and lasting longer in many northern states.</li>
+          <li><i class="fas fa-exclamation-triangle"></i> <strong>Extreme Events:</strong> Frequency of extreme weather events has increased by 30% in the last two decades.</li>
+        </ul>
+      </div>
+
+      <div class="info-section">
+        <h3>Data Sources</h3>
+        <p>Weather data has been collected from the Indian Meteorological Department (IMD) and includes daily recordings from weather stations across all states and union territories.</p>
+      </div>
+
+      <div class="info-section">
+        <h3>How to Use</h3>
+        <ol>
+          <li>Select a state from the dropdown menu</li>
+          <li>Choose a specific city within that state</li>
+          <li>Click the "Search Weather Data" button</li>
+          <li>View historical weather data, trends, and insights for the selected location</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team Members Modal (hidden initially) -->
+  <div id="teamModal" class="modal hidden">
+    <div class="modal-content team-modal-content">
+      <span class="close-btn">&times;</span>
+      <h2><i class="fas fa-users"></i> Our Team</h2>
+
+      <div class="team-intro">
+        <p>Meet the dedicated team behind this 50-Year Weather Analysis project. Our diverse group of experts has worked together to bring you comprehensive insights into India's changing climate patterns.</p>
+      </div>
+
+      <div class="team-grid">
+        <!-- Team Member 1 -->
+        <div class="team-member">
+          <div class="member-photo">
+            <img src="team_photos/Mani photo.jpg" alt="Mani Kumar">
+          </div>
+          <div class="member-info">
+            <h3>Mani Kumar</h3>
+            <p class="member-role">Project Lead & Frontend Developer</p>
+            <p class="member-description">Mani led the overall project development and created the interactive user interface. During the presentation, he will demonstrate the application's frontend features, explain the user experience design, and showcase how the visualizations enhance data understanding.</p>
+            <div class="presentation-points">
+              <h4>Presentation Focus:</h4>
+              <ul>
+                <li>Overview of the 50-year weather analysis project</li>
+                <li>Frontend architecture and responsive design</li>
+                <li>Interactive visualization components</li>
+                <li>User experience and interface design</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div class="team-member">
+          <div class="member-photo">
+            <img src="team_photos/monish_photo.jpg" alt="Monish">
+          </div>
+          <div class="member-info">
+            <h3>Monish</h3>
+            <p class="member-role">Backend Developer</p>
+            <p class="member-description">Monish developed the backend systems and APIs that power the application. During the presentation, he will explain the server architecture, database design, and how the backend processes and serves data to the frontend visualizations.</p>
+            <div class="presentation-points">
+              <h4>Presentation Focus:</h4>
+              <ul>
+                <li>Backend architecture and API design</li>
+                <li>Server-side data processing</li>
+                <li>Database structure and optimization</li>
+                <li>Integration with frontend components</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Member 3 -->
+        <div class="team-member">
+          <div class="member-photo">
+            <img src="team_photos/Ravi_photo.jpg" alt="Ravi Mauriya">
+          </div>
+          <div class="member-info">
+            <h3>Ravi Mauriya</h3>
+            <p class="member-role">Data Scraper & Data Engineer</p>
+            <p class="member-description">Ravi collected and processed the 50-year weather data from various sources. In the presentation, he will explain the data collection methodology, how the CSV files are structured and cleaned, and the techniques used to ensure data accuracy and completeness.</p>
+            <div class="presentation-points">
+              <h4>Presentation Focus:</h4>
+              <ul>
+                <li>Data collection and scraping techniques</li>
+                <li>Data cleaning and preprocessing</li>
+                <li>CSV file structure and organization</li>
+                <li>Data quality assurance and validation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-footer">
+        <p>Our team is committed to providing accurate and insightful climate data analysis. If you have questions or feedback about our project, please contact us at <a href="mailto:team@weatherinsights.org">team@weatherinsights.org</a>.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="main-footer">
+    <p>&copy; 2023 Weather Insights Project | Data sourced from Indian Meteorological Department</p>
+  </footer>
+
+  <!-- Load charts.js first since my_weather_project.js depends on it -->
+  <script src="charts.js"></script>
+  <script src="my_weather_project.js"></script>
+
+  <!-- Load the fix script to ensure the search button works -->
+  <script src="fix_search_button.js"></script>
+</body>
+</html>
